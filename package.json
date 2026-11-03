@@ -1,0 +1,11 @@
+{
+  "name": "feasibility-study-project",
+  "version": "1.0.0-draft",
+  "private": true,
+  "description": "FARIZON P6M MEA — Executive Feasibility Presentation (Draft V1.0)",
+  "scripts": {
+    "start": "npx --yes serve@14.2.4 . -l 3000",
+    "build": "node build.js",
+    "preview": "npx --yes serve@14.2.4 dist -l 3001"
+  }
+}

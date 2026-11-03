@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feasibility Study Project</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="FARIZON P6M MEA — Executive Feasibility Presentation · SMART TERMINAL · Draft V1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: one 1600x900 slide stage scaled to the screen on desktop/tablet; slides stack as a scrolling column on phones; one page per slide when printed */
+:root{
+  --or:#F26B1D; --or-d:#C4520E; --or-soft:#FDEBDD;
+  --g9:#1C1F24; --g8:#262A31; --g7:#363B44; --g5:#6A717C; --g3:#C8CCD2; --g2:#E3E5E9; --g1:#F3F4F6; --wh:#FFFFFF;
+  --ok:#2F8F5B; --warn:#C98A12; --bad:#C8102E; --info:#2D6CDF;
+  --th:'Prompt','Noto Sans Thai',Loma,sans-serif;
+  --num:'Inter','Prompt',sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--g9);color:var(--g9);font-family:var(--th);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow:hidden}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:6px}
+.n{font-family:var(--num)}
+
+/* ---------- stage ---------- */
+#deck{position:fixed;inset:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+#viewport{position:absolute;inset:0 0 64px 0}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center}
+.slide{position:absolute;inset:0;background:var(--wh);overflow:hidden;display:none;flex-direction:column;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.slide.on{display:flex}
+.slide.dark{background:var(--g9);color:var(--wh)}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;padding:54px 72px 0}
+.sh .k{display:flex;align-items:center;gap:12px;font:600 17px var(--num);color:var(--g5);letter-spacing:.04em}
+.sh .k b{background:var(--or);color:#fff;border-radius:6px;padding:3px 10px;font-weight:700}
+.dark .sh .k{color:#9AA1AB}
+.sh h2{font-size:60px;line-height:1.08;font-weight:700;margin-top:10px;letter-spacing:-.01em}
+.sh p{font-size:21px;color:var(--g5);max-width:560px;line-height:1.5;text-align:right}
+.dark .sh p{color:#B6BCC5}
+.sb{flex:1;padding:40px 72px 0;min-height:0}
+.sf{display:flex;align-items:center;justify-content:space-between;padding:0 72px 26px;font:500 14px var(--num);color:var(--g5)}
+.sf img{height:30px;width:auto}
+.dark .sf{color:#8A919B}
+.draft{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--or);color:var(--or-d);border-radius:30px;padding:4px 12px;font:600 13px var(--th)}
+.dark .draft{color:#FFB585}
+.draft::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--or)}
+
+/* ---------- shared blocks ---------- */
+.g{display:grid;gap:22px}
+.kpi{background:var(--g1);border-radius:16px;padding:26px 28px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.kpi .l{font-size:18px;color:var(--g5);font-weight:500}
+.kpi .v{font:800 48px/1.1 var(--num);color:var(--g9)}
+.kpi .v small{font-size:20px;font-weight:600;color:var(--g5)}
+.kpi .u{font-size:17px;color:var(--g5);line-height:1.4}
+.kpi.o{background:var(--or);}
+.kpi.o .l,.kpi.o .u,.kpi.o .v small{color:#FFE6D6}.kpi.o .v{color:#fff}
+.kpi.d{background:var(--g8)}
+.kpi.d .l,.kpi.d .u,.kpi.d .v small{color:#AEB4BD}.kpi.d .v{color:#fff}
+.kpi.line{background:var(--wh);border:1.5px solid var(--g2)}
+.pre{display:inline-block;font:700 12px var(--num);letter-spacing:.06em;color:var(--warn);border:1.5px solid var(--warn);border-radius:6px;padding:1px 7px;vertical-align:middle;margin-left:6px}
+.pend{display:inline-block;font:600 13px var(--th);color:var(--or-d);background:var(--or-soft);border-radius:6px;padding:2px 9px}
+.dark .pend{background:rgba(242,107,29,.18);color:#FFB585}
+table{width:100%;border-collapse:collapse}
+th{font:600 16px var(--th);color:var(--g5);text-align:left;padding:12px 16px;border-bottom:2px solid var(--g9)}
+td{font-size:21px;padding:14px 16px;border-bottom:1px solid var(--g2);vertical-align:middle}
+th.r,td.r{text-align:right}
+td.r{font-family:var(--num);font-weight:600;white-space:nowrap}
+td small{display:block;font-size:15px;color:var(--g5)}
+tr.tot td{background:var(--g9);color:#fff;font-weight:700;border:0}
+tr.sub td{background:var(--or-soft);color:var(--or-d);font-weight:700}
+.dark th{color:#9AA1AB;border-color:#fff}.dark td{border-color:var(--g7)}
+.note{font-size:18px;color:var(--g5);line-height:1.55;border-left:4px solid var(--or);padding:8px 14px;background:var(--g1);border-radius:0 8px 8px 0}
+.dark .note{background:var(--g8);color:#B6BCC5}
+.note b{color:var(--g9)}.dark .note b{color:#fff}
+.lbl{font:600 17px var(--th);color:var(--g5);margin-bottom:10px}
+.dark .lbl{color:#9AA1AB}
+.pill{display:inline-flex;gap:6px;align-items:center;border-radius:30px;padding:6px 14px;font-size:16px;font-weight:600;background:var(--g1);color:var(--g7)}
+.vat{font:700 11px var(--num);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.vat.in{background:var(--or-soft);color:var(--or-d)}.vat.ex{background:var(--g2);color:var(--g7)}
+
+.compact td{font-size:18px;padding:10px 14px}.compact .sb{padding-top:28px}.compact .ck{gap:10px 16px}.compact .ck div{padding:10px 12px}.compact .ck b{font-size:17px}.compact .ck span{font-size:15px}
+.sum{background:var(--g1);border-radius:16px;padding:24px 26px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.sum-h{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700}
+.sum-h>span:first-child{font:700 15px var(--num);background:var(--or);color:#fff;border-radius:6px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center}
+.sum ul{list-style:none;display:grid;gap:10px}
+.sum li{font-size:18px;line-height:1.5;color:var(--g7);padding-left:18px;position:relative}
+.sum li::before{content:"";position:absolute;left:0;top:11px;width:8px;height:8px;border-radius:2px;background:var(--or)}
+.sum li b{color:var(--g9)}
+.sum p{font-size:16px;color:var(--g5);line-height:1.5}
+.sum.hl{background:var(--or);color:#fff}.sum.hl .sum-h>span:first-child{background:#fff;color:var(--or-d)}.sum.hl p{color:#FFE6D6}
+.sum-k{display:grid;gap:12px}
+.sum-k div{display:grid;grid-template-columns:auto auto 1fr;align-items:baseline;gap:8px;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:10px}
+.sum-k b{font-size:40px;font-weight:800;line-height:1}.sum-k small{font-size:17px;color:#FFE6D6}.sum-k em{font-style:normal;font-size:16px;color:#FFE6D6;text-align:right}
+.sum.dk{background:var(--g9);color:#fff}.sum.dk p{color:#B6BCC5}
+.dec{font-size:34px;font-weight:700;line-height:1.2;color:#fff}
+@media (max-width:760px){.sum li{font-size:15px}.sum-k b{font-size:28px}.dec{font-size:24px}.sum-h{font-size:18px}}
+/* cover */
+.cover{position:relative;height:100%;display:grid;grid-template-columns:minmax(0,760px) 1fr}
+.cover .img{position:absolute;inset:0;overflow:hidden}
+.cover .img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#1C1F24 0%,#1C1F24 44%,rgba(28,31,36,.55) 58%,rgba(28,31,36,0) 72%)}
+.cover .img img{position:absolute;top:0;bottom:0;right:0;width:62%;height:100%;object-fit:cover;object-position:60% 50%}
+.cover .txt{position:relative;z-index:1;padding:64px 70px 54px;display:flex;flex-direction:column;gap:22px}
+.cover .logos{display:flex;flex-wrap:nowrap;align-items:center;gap:16px;background:#fff;border-radius:14px;padding:16px 22px;align-self:flex-start}
+.cover .logos img{height:30px;width:auto}
+.cover .logos .sep{width:1px;height:38px;background:var(--g3)}
+.cover h1{font-size:76px;line-height:1.02;font-weight:800;letter-spacing:-.02em;margin-top:auto}
+.cover h1 span{color:var(--or)}
+.cover .sub{font-size:24px;color:#C9CED6;line-height:1.45}
+.cover .meta{display:flex;gap:30px;font:500 16px var(--num);color:#9AA1AB;border-top:1px solid var(--g7);padding-top:18px}
+.cover .meta b{display:block;color:#fff;font-size:20px;font-family:var(--th)}
+
+/* structure */
+.flow{display:grid;grid-template-columns:1fr 120px 1fr 120px 1fr;align-items:center;gap:0}
+.party{background:var(--g1);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:12px;min-height:320px}
+.party .lg{height:64px;display:flex;align-items:center}
+.party .lg img{max-height:54px;width:auto}
+.party .mea{background:var(--or);color:#fff;border-radius:10px;padding:8px 14px;line-height:1.15}
+.party .mea b{font-size:20px;display:block}.party .mea span{font:500 12px var(--num)}
+.party h4{font-size:26px}
+.party p{font-size:18px;color:var(--g5);line-height:1.5}
+.party.core{background:var(--g9);color:#fff}.party.core p{color:#B6BCC5}
+.arr{display:flex;flex-direction:column;align-items:center;gap:6px;font:600 15px var(--th);color:var(--g5);text-align:center;padding:0 6px}
+.arr svg{width:100%;height:24px}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:260px 1fr;gap:6px 18px;align-items:center}
+.dark .tl .tr{background:var(--g8)}.dark .tl .nm small{color:#9AA1AB}
+.tl .nm{font-size:17px;font-weight:600}.tl .nm small{display:block;font-weight:400;color:var(--g5);font-size:13px}
+.tl .tr{position:relative;height:26px;background:var(--g1);border-radius:6px}
+.tl .bar{position:absolute;top:0;bottom:0;border-radius:6px;display:flex;align-items:center;padding-left:12px;font:600 13px var(--num);color:#fff;white-space:nowrap}
+.tl .bar.dash{background:repeating-linear-gradient(135deg,var(--g5) 0 8px,var(--g7) 8px 16px)}
+.ax{display:flex;justify-content:space-between;font:500 12px var(--num);color:var(--g5);grid-column:2}
+
+/* sliders */
+.ctl{display:grid;gap:24px}
+.ctl label{display:grid;grid-template-columns:1fr auto;gap:6px 12px;font-size:19px;font-weight:500;color:#C9CED6}
+.ctl label output{font:700 22px var(--num);color:#fff}
+.ctl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--or);height:26px}
+.ctl .base{font-size:14px;color:#8A919B;grid-column:1/-1}
+.res{display:grid;gap:8px}
+.res .row{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--g7);font-size:19px}
+.res .row b{font:700 24px var(--num);color:#fff;text-align:right}
+.res .row i{font:600 15px var(--num);font-style:normal;min-width:110px;text-align:right}
+.res .row.big{border:0;background:var(--g8);border-radius:12px;padding:14px 16px;margin-top:6px}
+.res .row.big b{font-size:30px}
+.up{color:#7BD69E}.dn{color:#FF8A8A}.z{color:#8A919B}
+
+/* risk */
+.rk{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.rc{border:1.5px solid var(--g2);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.rc .t{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.rc h4{font-size:23px;line-height:1.3}
+.rc .ar{font:600 12px var(--num);color:#fff;background:var(--g7);border-radius:5px;padding:2px 8px;white-space:nowrap}
+.rc p{font-size:18px;color:var(--g5);line-height:1.5}
+.rc .m{font-size:18px;line-height:1.45;border-top:1px dashed var(--g3);padding-top:8px}
+.rc .m b{color:var(--or-d)}
+.rc .o{font:500 15px var(--num);color:var(--g5)}
+
+/* checklist */
+.ck{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 20px}
+.ck div{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:12px 14px;border-radius:12px;background:var(--g8)}
+.ck .bx{width:26px;height:26px;border:2px solid var(--or);border-radius:6px;margin-top:2px}
+.ck b{font-size:19px;display:block}.ck span{font-size:16px;color:#B6BCC5;line-height:1.45;display:block}
+.ck em{font:500 14px var(--num);font-style:normal;color:#8A919B}
+
+/* ---------- UI chrome ---------- */
+#bar{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;gap:10px;padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));background:var(--g8);color:#fff;transition:opacity .3s}
+#bar .ttl{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+#bar .ttl span{color:#9AA1AB;font-weight:400}
+.ib{height:42px;min-width:42px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 12px;background:var(--g7);font-size:14px;font-weight:600;color:#fff}
+.ib:hover{background:#454B55}
+.ib.p{background:var(--or)}.ib.p:hover{background:var(--or-d)}
+.ib svg{width:18px;height:18px}
+#ctr{font:600 15px var(--num);color:#C9CED6;min-width:70px;text-align:center}
+#prog{position:absolute;left:0;right:0;bottom:64px;height:4px;background:var(--g7)}
+#prog i{display:block;height:100%;background:var(--or);width:0;transition:width .35s}
+.present #bar{opacity:0}.present #prog{bottom:0}.present #viewport{bottom:0}
+.present.wake #bar{opacity:1}
+#ov{position:fixed;inset:0;z-index:30;background:rgba(18,20,24,.97);display:none;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 28px) max(24px,env(safe-area-inset-right,0px)) 40px max(24px,env(safe-area-inset-left,0px))}
+#ov.on{display:block}
+#ov .hd{display:flex;justify-content:space-between;align-items:center;color:#fff;margin-bottom:20px;gap:12px}
+#ov h3{font-size:22px}
+#ov .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+#ov .th{background:none;text-align:left;color:#fff;display:flex;flex-direction:column;gap:8px}
+#ov .th .box{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;overflow:hidden;border-radius:8px;border:2px solid transparent;background:#fff}
+#ov .th.cur .box{border-color:var(--or)}
+#ov .th .box>div{position:absolute;left:0;top:0;width:1600px;height:900px;transform-origin:0 0;pointer-events:none}
+#ov .th .box .slide{display:flex;position:absolute;box-shadow:none;border-radius:0}
+#ov .th span{font-size:14px;font-weight:600}#ov .th span em{font:700 13px var(--num);color:var(--or);font-style:normal;margin-right:8px}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#fff;color:var(--g9);padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s;z-index:40;max-width:calc(100% - 32px);text-align:center}
+#toast.on{opacity:1}
+
+/* ---------- phone: slides become a scrolling column ---------- */
+@media (max-width:760px){
+  body{overflow:auto}
+  #deck{position:static;padding:0}
+  #viewport{position:static}
+  #stage{position:static;transform:none;width:auto;height:auto;padding:12px max(12px,env(safe-area-inset-left,0px)) 90px max(12px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+  .slide{position:relative;display:flex!important;inset:auto;border-radius:14px;box-shadow:none}
+  .sh{flex-direction:column;align-items:flex-start;gap:8px;padding:24px 18px 0}
+  .sh h2{font-size:28px}.sh p{font-size:15px;text-align:left}.sh .k{font-size:13px}
+  .sb{padding:18px 18px 0}
+  .sf{padding:16px 18px 18px;flex-wrap:wrap;gap:8px}
+  .g{grid-template-columns:1fr!important;gap:12px}
+  .kpi{padding:16px}.kpi .v{font-size:28px}.kpi .l{font-size:14px}.kpi .u{font-size:13px}
+  td{font-size:14px;padding:8px}th{font-size:12px;padding:8px}td small{font-size:12px}
+  .twrap{overflow-x:auto}
+  .twrap table{min-width:520px}
+  .note{font-size:14px}
+  .cover{grid-template-columns:1fr}
+  .cover .img{position:relative;height:210px}
+  .cover .img img{width:100%;left:0}
+  .cover .img::after{background:linear-gradient(0deg,rgba(28,31,36,.9),rgba(28,31,36,0) 60%)}
+  .cover .txt{padding:22px 18px}
+  .cover h1{font-size:40px;margin-top:8px}.cover .sub{font-size:17px}
+  .cover .logos{gap:12px;padding:10px 12px;flex-wrap:wrap}.cover .logos img{height:28px}
+  .cover .meta{flex-wrap:wrap;gap:14px}
+  .flow{grid-template-columns:1fr}
+  .arr{flex-direction:row;padding:8px 0}.arr svg{width:24px;height:40px;transform:rotate(90deg)}
+  .party{min-height:0}
+  .tl{grid-template-columns:1fr}
+  .ax{grid-column:1}
+  .rk,.ck{grid-template-columns:1fr}
+  .res .row{font-size:14px}.res .row b{font-size:17px}.res .row.big b{font-size:22px}
+  .chart svg{height:auto}
+  #bar{position:fixed;bottom:env(safe-area-inset-bottom,0px);height:60px}
+  #bar .ttl,#bPresent,#bPdf .t,#bOv .t{display:none}
+  #prog{position:fixed;bottom:calc(60px + env(safe-area-inset-bottom,0px))}
+}
+@media (prefers-reduced-motion:reduce){#prog i,#bar{transition:none}}
+
+/* ---------- print / export PDF: one landscape page per slide ---------- */
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{height:auto;overflow:visible;background:#fff}
+  #deck{position:static;padding:0}
+  #viewport{position:static}
+  #stage{position:static;transform:none;width:1600px;height:auto}
+  .slide{position:relative;display:flex!important;width:1600px;height:900px;border-radius:0;box-shadow:none;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #bar,#prog,#ov,#toast{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="deck">
+ <div id="viewport"><div id="stage">
+
+ <!-- 01 COVER -->
+ <section class="slide dark" data-t="Cover">
+  <div class="cover">
+   <div class="img"><img src="assets/hero-delivery-36.jpg" alt="ภาพประกอบพิธีส่งมอบรถ FARIZON P6M ณ การไฟฟ้านครหลวง"></div>
+   <div class="txt">
+    <div class="logos"><img data-logo="s" alt="SMART TERMINAL"><span class="sep"></span><img src="assets/logo-primemobility.png" alt="PrimeMobility"><span class="sep"></span><img src="assets/logo-farizon-maporn-navy.png" alt="FARIZON MAPORN AUTO TECH"></div>
+    <h1>FARIZON P6M <span>MEA</span><br>Feasibility Study</h1>
+    <div class="sub">โครงการจัดหารถตู้ไฟฟ้า FARIZON P6M 38 คัน ให้เช่าแก่การไฟฟ้านครหลวง<br>นำเสนอคณะผู้บริหาร SMART TERMINAL</div>
+    <div><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+    <div class="meta"><div>วันที่<b>4 พฤศจิกายน 2569</b></div><div>ผู้รับผิดชอบหลัก<b>SMART TERMINAL CORPORATION</b></div></div>
+   </div>
+   
+  </div>
+ </section>
+
+ <!-- 02 SNAPSHOT -->
+ <section class="slide" data-t="Executive Snapshot">
+  <div class="sh"><div><div class="k"><b>02</b>EXECUTIVE SNAPSHOT</div><h2>ภาพรวมโครงการในหน้าเดียว</h2></div><p>ตัวเลขจาก Draft V1.0 · ส่วนต่าง NPV และ IRR เป็นค่าเบื้องต้น ยังไม่รับรอง</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:repeat(4,1fr)">
+   <div class="kpi"><div class="l">รถทั้งหมด</div><div class="v">38 <small>คัน</small></div><div class="u">ให้เช่า 36 · สำรอง 2</div></div>
+   <div class="kpi"><div class="l">มูลค่าซื้อรวม (ยอดไฟแนนซ์)</div><div class="v">83.60 <small>ล้านบาท</small></div><div class="u">2,200,000 บาท/คัน รวมตกแต่ง</div></div>
+   <div class="kpi"><div class="l">ค่าเช่าจาก กฟน.</div><div class="v">56,496</div><div class="u">บาท/คัน/เดือน รวม VAT <span class="n">(52,800 ก่อน VAT)</span></div></div>
+   <div class="kpi"><div class="l">รายได้ค่าเช่ารวม</div><div class="v">120.68 <small>ล้านบาท</small></div><div class="u">รวม VAT · 2,136 งวด <span class="n">(112.78 ล้าน ก่อน VAT)</span></div></div>
+   <div class="kpi d"><div class="l">ยอดไฟแนนซ์รวมดอกเบี้ย</div><div class="v">98.23 <small>ล้านบาท</small></div><div class="u">3.5% ต่อปี Flat Rate · 29 คัน 60 งวด + 9 คัน 57 งวด</div></div>
+   <div class="kpi o"><div class="l">ส่วนต่างโครงการ<span class="pre" style="color:#fff;border-color:#fff">PRELIMINARY</span></div><div class="v">19.96 <small>ล้านบาท</small></div><div class="u">19,956,566.36 · ก่อนภาษีเงินได้และค่าใช้จ่ายอื่น</div></div>
+   <div class="kpi"><div class="l">NPV @ 10%<span class="pre">PRELIMINARY</span></div><div class="v">+8.49 <small>ล้านบาท</small></div><div class="u">ประมาณการ · ยังไม่รับรอง</div></div>
+   <div class="kpi"><div class="l">Equity IRR<span class="pre">PRELIMINARY</span></div><div class="v">79.54<small>%</small></div><div class="u">จำลอง · ยังไม่รับรอง · Payback <span class="pend">รอคำนวณ</span></div></div>
+  </div>
+  <div class="note" style="margin-top:22px"><b>ข้อเสนอ:</b> อนุมัติโครงการในหลักการโดยมีเงื่อนไข และยังไม่ใช้ IRR หรือ NPV ฉบับประมาณการเป็นตัวเลขรับรองสำหรับสถาบันการเงิน จนกว่าเอกสารสำคัญ 8 รายการจะผ่านการตรวจสอบ</div>
+  </div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 03 STRUCTURE -->
+ <section class="slide" data-t="Project Structure">
+  <div class="sh"><div><div class="k"><b>03</b>PROJECT STRUCTURE</div><h2>ภาพรวมกระบวนการ</h2></div><p>PRIME เป็น Project Finance และรับค่าเช่าจาก กฟน. ตามเอกสารโอนสิทธิรับเงิน</p></div>
+  <div class="sb">
+   <div class="flow">
+    <div class="party"><div class="lg"><img src="assets/logo-farizon-maporn-navy.png" alt="FARIZON MAPORN AUTO TECH"></div><h4>MAPORN AUTOTECH</h4><p>ผู้ขายรถ FARIZON P6M 38 คัน พร้อมอุปกรณ์ตกแต่ง ราคา 2,200,000 บาท/คัน</p></div>
+    <div class="arr"><span>ขายรถ<br>ออกใบกำกับให้ PRIME</span><svg viewBox="0 0 100 24"><path d="M2 12h90" stroke="#F26B1D" stroke-width="3" fill="none"/><path d="M84 4l12 8-12 8" fill="#F26B1D"/></svg></div>
+    <div class="party"><div class="lg"><img src="assets/logo-primemobility.png" alt="PrimeMobility"></div><h4>PRIME Mobility</h4><p>ผู้ให้เช่าซื้อ วงเงิน 83,600,000 บาท · รับค่าเช่าจาก กฟน. หักค่างวด แล้วโอนส่วนที่เหลือให้ SMART · ถือเงินสำรอง 1 ค่างวด</p></div>
+    <div class="arr"><span>เช่าซื้อ<br>โอนกรรมสิทธิ์เมื่อชำระครบ</span><svg viewBox="0 0 100 24"><path d="M2 12h90" stroke="#F26B1D" stroke-width="3" fill="none"/><path d="M84 4l12 8-12 8" fill="#F26B1D"/></svg></div>
+    <div class="party core"><div class="lg"><img data-logo="s" alt="SMART TERMINAL" style="background:#fff;border-radius:8px;padding:6px 10px"></div><h4>SMART TERMINAL</h4><p>ผู้ให้บริการเช่ารถแก่ กฟน. · รับผิดชอบบำรุงรักษา 7,000 บาท/คัน/เดือน ก่อน VAT · นำส่ง VAT ขาย</p></div>
+   </div>
+   <div class="g" style="grid-template-columns:1fr 2fr;margin-top:26px;align-items:center">
+    <div class="party" style="min-height:0;flex-direction:row;align-items:center;gap:16px"><div class="mea"><b>การไฟฟ้านครหลวง</b><span>Metropolitan Electricity Authority</span></div><p>ผู้เช่า 36 คัน · ค่าเช่า 56,496 บาท/คัน/เดือน รวม VAT</p></div>
+    <div class="note">ค่าเช่าจาก กฟน. ชำระเข้า PRIME ตามเอกสารโอนสิทธิรับเงิน → PRIME หักค่างวดเช่าซื้อ → โอนส่วนที่เหลือให้ SMART · สิทธิของแต่ละฝ่ายกรณียกเลิกสัญญา <span class="pend">รอยืนยัน (เอกสารข้อ 06)</span></div>
+   </div>
+  </div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 04 FLEET -->
+ <section class="slide" data-t="Fleet & Delivery">
+  <div class="sh"><div><div class="k"><b>04</b>FLEET &amp; DELIVERY</div><h2>รถ 38 คัน ส่งมอบ 2 รอบ</h2></div><p>FARIZON Passenger EV SUPER VAN – P6M ลาย กฟน.</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1.15fr 1fr;align-items:start">
+   <div style="display:grid;gap:18px">
+    <img src="assets/vehicle-p6m-mea-livery.jpg" alt="FARIZON P6M ลาย MEA ด้านหน้า ด้านข้าง ด้านหลัง" style="border-radius:14px;border:1px solid var(--g2)">
+    <div class="g" style="grid-template-columns:repeat(3,1fr)">
+     <div class="kpi"><div class="l">รถทั้งหมด</div><div class="v">38</div></div>
+     <div class="kpi o"><div class="l">ให้เช่า กฟน.</div><div class="v">36</div></div>
+     <div class="kpi d"><div class="l">รถสำรอง</div><div class="v">2</div></div>
+    </div>
+   </div>
+   <div style="display:grid;gap:16px">
+    <div class="twrap"><table>
+     <thead><tr><th>รอบ</th><th class="r">รถไฟแนนซ์</th><th class="r">งวดผ่อน</th><th class="r">รถเช่า (หนังสือ กฟน.)</th><th class="r">งวดเช่า</th></tr></thead>
+     <tbody>
+      <tr><td>รอบแรก</td><td class="r">29 คัน</td><td class="r">60</td><td class="r">28 คัน</td><td class="r">60</td></tr>
+      <tr><td>รอบสอง</td><td class="r">9 คัน</td><td class="r">57</td><td class="r">8 คัน</td><td class="r">57</td></tr>
+      <tr class="tot"><td>รวม</td><td class="r">38 คัน</td><td class="r"></td><td class="r">36 คัน</td><td class="r">2,136 งวด</td></tr>
+     </tbody></table></div>
+    <div class="note">จำนวนงวดเช่ารวม 28 × 60 + 8 × 57 = <b class="n">2,136</b> งวด · รถไฟแนนซ์มากกว่ารถเช่ารอบละ 1 คัน ซึ่งตรงกับรถสำรอง 2 คัน <span class="pend">การจัดสรรรถสำรองรายรอบรอยืนยัน</span></div>
+    <div class="note">วันส่งมอบรอบแรกและรอบสอง <span class="pend">อยู่ระหว่างการเพิ่มเติมข้อมูล</span></div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 05 REVENUE -->
+ <section class="slide" data-t="Commercial Revenue">
+  <div class="sh"><div><div class="k"><b>05</b>COMMERCIAL REVENUE</div><h2>รายได้ค่าเช่าจาก กฟน.</h2></div><p>ราคาหลังต่อรองตามหนังสือ ST 69/1021/003 (21 ต.ค. 2569)</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1.25fr 1fr;align-items:start">
+   <div style="display:grid;gap:16px">
+    <div class="twrap"><table>
+     <thead><tr><th>รายการ</th><th class="r">งวด</th><th class="r">ก่อน VAT</th><th class="r">VAT 7%</th><th class="r">รวม VAT</th></tr></thead>
+     <tbody>
+      <tr><td>ค่าเช่าต่อคันต่อเดือน</td><td class="r">1</td><td class="r">52,800.00</td><td class="r">3,696.00</td><td class="r">56,496.00</td></tr>
+      <tr><td>28 คัน × 60 งวด</td><td class="r">1,680</td><td class="r">88,704,000</td><td class="r">6,209,280</td><td class="r">94,913,280</td></tr>
+      <tr><td>8 คัน × 57 งวด</td><td class="r">456</td><td class="r">24,076,800</td><td class="r">1,685,376</td><td class="r">25,762,176</td></tr>
+      <tr class="tot"><td>รายได้ค่าเช่ารวม</td><td class="r">2,136</td><td class="r">112,780,800</td><td class="r">7,894,656</td><td class="r">120,675,456</td></tr>
+     </tbody></table></div>
+    <div class="note">VAT ขาย 7,894,656 บาท เป็นเงินที่ SMART ต้องนำส่งกรมสรรพากร ไม่ใช่รายได้ของโครงการ · รายได้ที่ใช้วัดผลคือ <b class="n">112,780,800</b> บาท ก่อน VAT</div>
+   </div>
+   <div style="display:grid;gap:16px">
+    <div class="lbl">รายได้รวม VAT แยกส่วน (ล้านบาท)</div>
+    <div class="chart" id="chRev"></div>
+    <div class="g" style="grid-template-columns:1fr 1fr">
+     <div class="kpi line"><div class="l">ราคาเสนอเดิม</div><div class="v" style="font-size:28px">120,899,520</div><div class="u">รวม VAT</div></div>
+     <div class="kpi line"><div class="l">ปรับลดหลังต่อรอง</div><div class="v" style="font-size:28px;color:var(--or-d)">−224,064</div><div class="u">รวม VAT</div></div>
+    </div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 06 ASSET BUDGET -->
+ <section class="slide" data-t="Asset Budget">
+  <div class="sh"><div><div class="k"><b>06</b>ASSET BUDGET</div><h2>งบจัดซื้อรถ 83.6 ล้านบาท</h2></div><p>ราคาต่อคันยืนยันแล้ว 4 พ.ย. 2569 · ฐาน VAT รอยืนยันจากใบเสนอราคา MAPORN (ข้อ 01)</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1fr;align-items:start">
+   <div style="display:grid;gap:16px">
+    <div class="twrap"><table>
+     <thead><tr><th>รายการ</th><th class="r">ต่อคัน</th><th class="r">38 คัน</th></tr></thead>
+     <tbody>
+      <tr><td>ราคารถเปล่า</td><td class="r">2,010,000</td><td class="r">76,380,000</td></tr>
+      <tr><td>อุปกรณ์ตกแต่งตามข้อกำหนด</td><td class="r">190,000</td><td class="r">7,220,000</td></tr>
+      <tr class="tot"><td>ราคาซื้อรวมตกแต่ง</td><td class="r">2,200,000</td><td class="r">83,600,000</td></tr>
+     </tbody></table></div>
+    <div class="note">ฐาน VAT ของราคา 2,200,000 บาท (รวมหรือไม่รวม VAT) <span class="pend">รอยืนยันจากใบเสนอราคา</span> · ใบกำกับภาษีของ MAPORN ออกให้ PRIME จึงไม่ใช้เครดิต VAT ของ SMART โดยตรง</div>
+   </div>
+   <div style="display:grid;gap:16px">
+    <div class="lbl">สัดส่วนต่อคัน</div>
+    <div class="chart" id="chAsset"></div>
+    <div class="note" style="border-color:var(--ok)"><b>ยืนยันแล้ว:</b> ราคารถเปล่า 2,010,000 + อุปกรณ์ตกแต่งตามข้อกำหนด 190,000 = 2,200,000 บาท/คัน ตรงกับ Dealer Master</div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 07 FINANCING -->
+ <section class="slide" data-t="Financing">
+  <div class="sh"><div><div class="k"><b>07</b>FINANCING</div><h2>เช่าซื้อกับ PRIME 3.5% Flat</h2></div><p>ยอดชำระรวมไม่เปลี่ยน 98,230,000 บาท แม้ผ่อน 2 รอบ</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1.2fr;align-items:start">
+   <div style="display:grid;gap:16px">
+    <div class="kpi d"><div class="l">สูตรดอกเบี้ย Flat Rate</div><div class="v" style="font-size:30px">83,600,000 × 3.5% × 5</div><div class="u">= ดอกเบี้ย 14,630,000 บาท · ยอดชำระรวม 98,230,000 บาท</div></div>
+    <div class="lbl">โครงสร้างยอดชำระรวม (ล้านบาท)</div>
+    <div class="chart" id="chFin"></div>
+    <div class="note">โอนกรรมสิทธิ์รถให้ SMART เมื่อชำระครบ <span class="pend">รอยืนยันในสัญญาเช่าซื้อ (ข้อ 02)</span></div>
+   </div>
+   <div style="display:grid;gap:16px">
+    <div class="twrap"><table>
+     <thead><tr><th>รอบ</th><th class="r">คัน</th><th class="r">งวด</th><th class="r">ค่างวด/คัน</th><th class="r">ค่างวด/รอบ/เดือน</th><th class="r">ยอดชำระรวม</th></tr></thead>
+     <tbody>
+      <tr><td>รอบแรก</td><td class="r">29</td><td class="r">60</td><td class="r">43,083.33</td><td class="r">1,249,416.67</td><td class="r">74,965,000</td></tr>
+      <tr><td>รอบสอง</td><td class="r">9</td><td class="r">57</td><td class="r">45,350.88</td><td class="r">408,157.89</td><td class="r">23,265,000</td></tr>
+      <tr class="tot"><td>รวม</td><td class="r">38</td><td class="r"></td><td class="r"></td><td class="r">1,657,574.56</td><td class="r">98,230,000</td></tr>
+     </tbody></table></div>
+    <div class="note">ค่างวดต่อคันคำนวณจาก 2,200,000 × (1 + 3.5% × 5) = 2,585,000 บาท ÷ จำนวนงวด · รอบสองผ่อน 57 งวด ค่างวดต่อคันจึงสูงกว่า · ตารางผ่อนจริง <span class="pend">รอ PRIME ยืนยัน (ข้อ 03)</span></div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 08 OPERATING COST -->
+ <section class="slide" data-t="Operating Cost">
+  <div class="sh"><div><div class="k"><b>08</b>OPERATING COST</div><h2>ค่าบำรุงรักษา 7,000 บาท/คัน/เดือน</h2></div><p>ก่อน VAT · ค่าใช้จ่ายอื่นยังไม่ได้รวม</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1fr;align-items:start">
+   <div style="display:grid;gap:16px">
+    <div class="g" style="grid-template-columns:1fr 1fr 1fr">
+     <div class="kpi"><div class="l">ก่อน VAT<span class="vat ex">NON-VAT</span></div><div class="v" style="font-size:32px">7,000</div><div class="u">บาท/คัน/เดือน</div></div>
+     <div class="kpi"><div class="l">VAT 7%</div><div class="v" style="font-size:32px">490</div><div class="u">เครดิตภาษีซื้อได้</div></div>
+     <div class="kpi"><div class="l">รวม VAT<span class="vat in">VAT</span></div><div class="v" style="font-size:32px">7,490</div><div class="u">เงินสดจ่ายจริง</div></div>
+    </div>
+    <div class="kpi o"><div class="l">ต้นทุนบำรุงรักษารวม ก่อน VAT (Draft V1.0)</div><div class="v">13,909,000</div><div class="u">บาท · เท่ากับ 1,987 คัน-เดือน ที่ 7,000 บาท</div></div>
+   </div>
+   <div style="display:grid;gap:16px">
+    <div class="note" style="border-color:var(--warn)"><b>ฐานคำนวณยังไม่ชัด:</b> ถ้าคิดตามงวดเช่า 2,136 งวด จะได้ 7,000 × 2,136 = 14,952,000 บาท (ต่างจาก Draft 1,043,000 บาท) · ต้องยืนยันว่าคิดรถสำรองหรือช่วงรับประกันอย่างไร</div>
+    <div class="note" style="border-color:var(--warn)"><b>ต่างจาก O&amp;M Master เดิม:</b> 8,146.67 บาท/คัน/เดือน ซึ่งรวมประกันภัย ภาษีรถ และ Fleet Support ×3 · ตัวเลข 7,000 บาทอาจยังไม่รวมรายการเหล่านี้</div>
+    <div class="lbl" style="margin-top:4px">ค่าใช้จ่ายที่ยังไม่ได้รวม (เอกสารข้อ 07)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px"><span class="pill">ภาษีเงินได้</span><span class="pill">ประกันภัย / พ.ร.บ. ปี 2–5</span><span class="pill">ภาษีรถยนต์</span><span class="pill">รถทดแทน / Roadside</span><span class="pill">ค่าบริหารโครงการ</span></div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 09 CASH FLOW -->
+ <section class="slide dark" data-t="Cash Flow Mechanics">
+  <div class="sh"><div><div class="k"><b>09</b>CASH FLOW MECHANICS</div><h2>เงินหนึ่งเดือนไหลอย่างไร</h2></div><p>เดือนที่รถเช่าครบ 36 คัน และผ่อนครบทั้ง 2 รอบ · ภาพประกอบกลไก ไม่ใช่ประมาณการรับรอง</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1.3fr 1fr;align-items:start">
+   <div><div class="lbl">กระแสเงินสดรายเดือน (บาท)</div><div class="chart" id="chWf"></div></div>
+   <div style="display:grid;gap:14px">
+    <div class="note"><b>ผลลัพธ์:</b> หลัง PRIME หักค่างวดแล้ว SMART ได้รับ <b class="n">376,281.44</b> บาท เมื่อจ่ายบำรุงรักษาและนำส่ง VAT แล้ว เหลือ <b class="n" style="color:#FF8A8A">−8,774.56</b> บาท ก่อนนับเครดิต VAT จากค่างวดเช่าซื้อ</div>
+    <div class="note">เครดิต VAT ซื้อจากใบกำกับภาษีเช่าซื้อรายงวดของ PRIME จะเปลี่ยนผลเดือนนี้เป็นบวกหรือไม่ <span class="pend">รอยืนยันฐานภาษี (ข้อ 04)</span></div>
+    <div class="note">ช่วงที่ยังไม่ได้รับค่าเช่าครบ เช่น ก่อนส่งมอบรอบสอง SMART อาจต้องใช้เงินทุนหมุนเวียน · ยอดเงินสดขาดสูงสุด <span class="pend">รอแผนเงินทุนหมุนเวียน (ข้อ 07)</span></div>
+   </div>
+  </div>
+  <div style="margin-top:12px"><div class="lbl">ระยะเวลา (งวด)</div><div class="tl" id="tl"></div></div>
+  </div>
+  <div class="sf"><img data-logo="s" alt="" style="background:#fff;border-radius:6px;padding:3px 6px"><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 10 RESERVE -->
+ <section class="slide" data-t="Debt Service Reserve">
+  <div class="sh"><div><div class="k"><b>10</b>DEBT SERVICE RESERVE</div><h2>เงินสำรอง PRIME 1 ค่างวด</h2></div><p>ข้อตกลงเงินสำรอง (เอกสารข้อ 05)</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1fr;align-items:start">
+   <div style="display:grid;gap:16px">
+    <div class="kpi o"><div class="l">เงินสำรองเป้าหมาย</div><div class="v" style="font-size:56px">1,657,574.56</div><div class="u">บาท · เท่ากับค่างวดรวม 1 เดือนของรถ 38 คัน</div></div>
+    <div class="twrap"><table><tbody>
+     <tr><td>ค่างวดรอบแรก 29 คัน</td><td class="r">1,249,416.67</td></tr>
+     <tr><td>ค่างวดรอบสอง 9 คัน</td><td class="r">408,157.89</td></tr>
+     <tr class="tot"><td>รวม 1 ค่างวด</td><td class="r">1,657,574.56</td></tr>
+    </tbody></table></div>
+   </div>
+   <div style="display:grid;gap:12px">
+    <div class="lbl">เงื่อนไขที่ต้องกำหนดในข้อตกลง</div>
+    <div class="twrap"><table>
+     <thead><tr><th>เงื่อนไข</th><th>สถานะ</th></tr></thead>
+     <tbody>
+      <tr><td>การสะสมเงินสำรอง<small>สะสมจากค่าเช่าที่ PRIME รับ หรือวางเงินครั้งเดียว</small></td><td><span class="pend">รอยืนยัน</span></td></tr>
+      <tr><td>การใช้เงินสำรอง<small>กรณี กฟน. ชำระล่าช้า</small></td><td><span class="pend">รอยืนยัน</span></td></tr>
+      <tr><td>การเติมเงินสำรอง<small>เมื่อถูกใช้ไป</small></td><td><span class="pend">รอยืนยัน</span></td></tr>
+      <tr><td>การคืนเงินสำรอง<small>เมื่อชำระครบหรือสิ้นสัญญา</small></td><td><span class="pend">รอยืนยัน</span></td></tr>
+     </tbody></table></div>
+    <div class="note">เงินสำรองเป็นเงินของ SMART ที่ถูกกันไว้ ไม่ใช่ค่าใช้จ่าย แต่ลดเงินสดที่ใช้ได้ระหว่างโครงการ</div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 11 RESIDUAL & VAT -->
+ <section class="slide" data-t="Residual Value & VAT">
+  <div class="sh"><div><div class="k"><b>11</b>RESIDUAL VALUE &amp; VAT</div><h2>มูลค่าซากและการแยก VAT</h2></div><p>VAT ไม่ใช่รายได้หรือต้นทุนของโครงการ แยกออกทุกบรรทัด</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1.3fr;align-items:start">
+   <div style="display:grid;gap:16px">
+    <div class="kpi d"><div class="l">ขายซากรวม (Draft V1.0)</div><div class="v">15,200,000</div><div class="u">บาท รวม VAT · เฉลี่ย 400,000 บาท/คัน (38 คัน)</div></div>
+    <div class="g" style="grid-template-columns:1fr 1fr">
+     <div class="kpi"><div class="l">ก่อน VAT</div><div class="v" style="font-size:28px">14,205,607.48</div></div>
+     <div class="kpi"><div class="l">VAT 7%</div><div class="v" style="font-size:28px">994,392.52</div></div>
+    </div>
+    <div class="note">ขายซากได้เมื่อ SMART ได้รับโอนกรรมสิทธิ์หลังผ่อนครบ · ราคาขายซากจริง <span class="pend">รอประเมิน</span></div>
+   </div>
+   <div class="twrap"><table>
+    <thead><tr><th>รายการ</th><th class="r">ก่อน VAT</th><th class="r">VAT 7%</th><th class="r">รวม VAT</th><th>VAT ของใคร</th></tr></thead>
+    <tbody>
+     <tr><td>ค่าเช่าจาก กฟน.</td><td class="r">112,780,800</td><td class="r">7,894,656</td><td class="r">120,675,456</td><td>VAT ขาย · SMART นำส่ง</td></tr>
+     <tr><td>ขายซาก 38 คัน</td><td class="r">14,205,607.48</td><td class="r">994,392.52</td><td class="r">15,200,000</td><td>VAT ขาย · SMART นำส่ง</td></tr>
+     <tr><td>บำรุงรักษา (Draft)</td><td class="r">13,909,000</td><td class="r">973,630</td><td class="r">14,882,630</td><td>VAT ซื้อ · เครดิตได้</td></tr>
+     <tr><td>ค่างวดเช่าซื้อ PRIME</td><td class="r" colspan="2" style="text-align:center"><span class="pend">ฐาน VAT รอยืนยัน</span></td><td class="r">98,230,000</td><td>VAT ซื้อ · ตามใบกำกับรายงวด</td></tr>
+    </tbody></table>
+    <div class="note" style="margin-top:14px">ห้ามใช้ใบกำกับภาษีที่ MAPORN ออกให้ PRIME มาเครดิตแทน SMART · สิทธิเครดิต VAT ของ SMART ต้องมาจากใบกำกับภาษีเช่าซื้อรายงวดตามสัญญา (ข้อ 04)</div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 12 FEASIBILITY -->
+ <section class="slide" data-t="Financial Feasibility">
+  <div class="sh"><div><div class="k"><b>12</b>FINANCIAL FEASIBILITY</div><h2>ผลตอบแทนเบื้องต้น</h2></div><p>ทุกตัวเลขในหน้านี้เป็น Preliminary · รอ Final Audit (ข้อ 08)</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:repeat(4,1fr)">
+   <div class="kpi o"><div class="l">ส่วนต่างโครงการ<span class="pre" style="color:#fff;border-color:#fff">PRELIM</span></div><div class="v" style="font-size:34px">19,956,566.36</div><div class="u">บาท · ก่อนภาษีเงินได้และค่าใช้จ่ายอื่น</div></div>
+   <div class="kpi"><div class="l">NPV @ 10%<span class="pre">PRELIM</span></div><div class="v">+8.49 <small>ล้าน</small></div><div class="u">ยังไม่รับรอง</div></div>
+   <div class="kpi"><div class="l">Equity IRR<span class="pre">PRELIM</span></div><div class="v">79.54<small>%</small></div><div class="u">จำลอง · ยังไม่รับรอง</div></div>
+   <div class="kpi"><div class="l">Payback / ROI</div><div class="v" style="font-size:26px"><span class="pend" style="font-size:18px">รอคำนวณใหม่</span></div><div class="u">Draft V1.0 ยังไม่มีตัวเลข</div></div>
+  </div>
+  <div class="g" style="grid-template-columns:1.2fr 1fr;margin-top:22px;align-items:start">
+   <div><div class="lbl">ส่วนประกอบหลักที่ระบุใน Draft (ล้านบาท)</div><div class="chart" id="chFeas"></div></div>
+   <div style="display:grid;gap:12px">
+    <div class="note" style="border-color:var(--warn)"><b>ยังกระทบยอดไม่ได้:</b> นำรายการที่ระบุมาบวกลบกันตรง ๆ ไม่ได้ 19,956,566.36 บาท ต้องมีวิธีคำนวณจากไฟล์ต้นฉบับ (ฐาน VAT ค่างวด เงินสำรอง และจังหวะเวลา) ก่อนรับรอง</div>
+    <div class="note">Equity IRR สูงเพราะ PRIME ให้ไฟแนนซ์ 100% ทุนของ SMART จึงต่ำมาก ตัวเลขนี้ไวต่อเงินทุนหมุนเวียนที่ต้องใส่จริง</div>
+    <div class="note">ห้ามใช้ NPV และ IRR ฉบับนี้เป็นตัวเลขรับรองต่อสถาบันการเงิน</div>
+   </div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 13 SENSITIVITY -->
+ <section class="slide dark" data-t="Sensitivity Analysis">
+  <div class="sh"><div><div class="k"><b>13</b>SENSITIVITY ANALYSIS</div><h2>ปรับสมมติฐาน ดูผลทันที</h2></div><p>เครื่องคิดกลไกเงินสดรายเดือน (เดือนที่รถครบ) และยอดไฟแนนซ์ · ไม่ได้คำนวณ NPV หรือ IRR</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1.3fr;align-items:start">
+   <div class="ctl">
+    <label for="sRent">ค่าเช่า/คัน/เดือน รวม VAT <output id="oRent"></output><input type="range" id="sRent" min="48000" max="64000" step="1"><span class="base">กรณีฐาน 56,496</span></label>
+    <label for="sRate">ดอกเบี้ย Flat ต่อปี <output id="oRate"></output><input type="range" id="sRate" min="2" max="6" step="0.25"><span class="base">กรณีฐาน 3.5%</span></label>
+    <label for="sMnt">บำรุงรักษา/คัน/เดือน ก่อน VAT <output id="oMnt"></output><input type="range" id="sMnt" min="4000" max="12000" step="250"><span class="base">กรณีฐาน 7,000</span></label>
+    <label for="sCar">รถที่ได้รับค่าเช่าในเดือนนั้น <output id="oCar"></output><input type="range" id="sCar" min="28" max="36" step="1"><span class="base">กรณีฐาน 36 คัน</span></label>
+    <button class="ib" id="sReset" type="button" style="justify-self:start">คืนค่ากรณีฐาน</button>
+   </div>
+   <div class="res" id="res"></div>
+  </div></div>
+  <div class="sf"><img data-logo="s" alt="" style="background:#fff;border-radius:6px;padding:3px 6px"><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 14 RISK -->
+ <section class="slide" data-t="Risk & Mitigation">
+  <div class="sh"><div><div class="k"><b>14</b>RISK &amp; MITIGATION</div><h2>ความเสี่ยงและวิธีจัดการ</h2></div><p>จากรายการเอกสารที่ต้องตรวจสอบ · ระดับโอกาสและผลกระทบรอฝ่ายการเงินประเมิน</p></div>
+  <div class="sb"><div class="rk" id="rk"></div></div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ <!-- 15 EXECUTIVE SUMMARY -->
+ <section class="slide" data-t="Executive Summary">
+  <div class="sh"><div><div class="k"><b>15</b>EXECUTIVE SUMMARY</div><h2>บทสรุปผู้บริหาร</h2></div><p>FARIZON P6M MEA · Draft V1.0 (4 พ.ย. 2569)</p></div>
+  <div class="sb"><div class="g" style="grid-template-columns:1fr 1fr 1fr;align-items:stretch">
+   <div class="sum">
+    <div class="sum-h"><span>1</span>โครงการ</div>
+    <ul>
+     <li>จัดหารถตู้ไฟฟ้า FARIZON P6M <b class="n">38</b> คัน ให้เช่าแก่ กฟน. <b class="n">36</b> คัน สำรอง <b class="n">2</b> คัน</li>
+     <li>ราคา <b class="n">2,200,000</b> บาท/คัน (รถเปล่า 2,010,000 + ตกแต่ง 190,000) รวม <b class="n">83,600,000</b> บาท</li>
+     <li>ค่าเช่า <b class="n">56,496</b> บาท/คัน/เดือน รวม VAT (52,800 ก่อน VAT) รวม 2,136 งวด</li>
+    </ul>
+   </div>
+   <div class="sum">
+    <div class="sum-h"><span>2</span>การเงิน</div>
+    <ul>
+     <li>PRIME ให้เช่าซื้อ ดอกเบี้ย 3.5% Flat ยอดชำระรวม <b class="n">98,230,000</b> บาท (29 คัน 60 งวด · 9 คัน 57 งวด)</li>
+     <li>รายได้ค่าเช่า <b class="n">112,780,800</b> บาท ก่อน VAT (<span class="n">120,675,456</span> รวม VAT)</li>
+     <li>บำรุงรักษา 7,000 บาท/คัน/เดือน ก่อน VAT · เงินสำรอง 1 ค่างวด <span class="n">1,657,574.56</span> · ขายซาก <span class="n">15,200,000</span> รวม VAT</li>
+    </ul>
+   </div>
+   <div class="sum hl">
+    <div class="sum-h"><span>3</span>ผลตอบแทน<span class="pre" style="color:#fff;border-color:#fff">PRELIMINARY</span></div>
+    <div class="sum-k"><div><b class="n">19.96</b><small>ล้านบาท</small><em>ส่วนต่างโครงการ ก่อนภาษีเงินได้</em></div><div><b class="n">+8.49</b><small>ล้านบาท</small><em>NPV @ 10%</em></div><div><b class="n">79.54%</b><em>Equity IRR (จำลอง)</em></div></div>
+    <p>ยังไม่รับรอง · Payback และ ROI รอคำนวณใหม่</p>
+   </div>
+  </div>
+  <div class="g" style="grid-template-columns:1fr;margin-top:22px;align-items:stretch">
+   <div class="sum">
+    <div class="sum-h"><span>4</span>ประเด็นสำคัญ</div>
+    <ul>
+     <li>เดือนที่รถครบ 36 คัน หลังหักค่างวด บำรุงรักษา และ VAT เหลือ <b class="n" style="color:var(--bad)">−8,774.56</b> บาท/เดือน ก่อนเครดิต VAT ค่างวดเช่าซื้อ</li>
+     <li>ผลตอบแทนขึ้นกับ <b>ฐาน VAT เช่าซื้อ PRIME</b> และ <b>เงินทุนหมุนเวียน</b> ของ SMART</li>
+    </ul>
+   </div>
+  </div>
+  </div>
+  <div class="sf"><img data-logo="s" alt=""><span class="draft">Draft V1.0 — Pending Financial Verification</span></div>
+ </section>
+
+ </div></div>
+
+ <div id="prog"><i></i></div>
+ <div id="bar">
+  <button class="ib" id="bPrev" aria-label="สไลด์ก่อนหน้า"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <span id="ctr">1 / 15</span>
+  <button class="ib p" id="bNext" aria-label="สไลด์ถัดไป"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="ttl" id="ttl"></div>
+  <button class="ib" id="bOv" aria-label="ภาพรวมสไลด์"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg><span class="t">ภาพรวม</span></button>
+  <button class="ib" id="bPresent" aria-label="โหมดนำเสนอ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>นำเสนอ</span></button>
+  <button class="ib" id="bPdf" aria-label="Export PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span class="t">PDF</span></button>
+ </div>
+</div>
+
+<div id="ov" role="dialog" aria-label="ภาพรวมสไลด์"><div class="hd"><h3>ภาพรวมสไลด์</h3><button class="ib" id="ovClose">ปิด (Esc)</button></div><div class="grid" id="ovGrid"></div></div>
+<div id="toast" role="status"></div>
+
+<script>
+/* single source for the repeated company logo (keeps the built file small) */
+const LOGO_S='assets/logo-smart-terminal-s.png';
+document.querySelectorAll('img[data-logo="s"]').forEach(i=>i.src=LOGO_S);
+/* ===================== DATA (Draft V1.0 · Pending Financial Verification) ===================== */
+const D={
+  fleet:38, rented:36, spare:2,
+  price:2200000, base:2010000, deco:190000, purchase:83600000,
+  rentIn:56496, vat:0.07, rentMonths:2136,
+  rate:0.035, years:5, hpTotal:98230000,
+  rounds:[{cars:29,n:60,rent:28},{cars:9,n:57,rent:8}],
+  maint:7000, maintTotal:13909000,
+  reserve:1657574.56, residualIn:15200000,
+  margin:19956566.36, npv:8.49, irr:79.54
+};
+const fmt=(v,d=0)=>Number(v).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const RISKS=[
+ {t:'ฐาน VAT ค่างวดเช่าซื้อ',a:'ภาษี',d:'ถ้า SMART เครดิต VAT จากค่างวดไม่ได้ เดือนที่รถครบอาจติดลบ',m:'ยืนยันใบกำกับภาษีเช่าซื้อรายงวดกับ PRIME และฝ่ายบัญชี',o:'ข้อ 04 · PRIME / บัญชี SMART'},
+ {t:'เงินทุนหมุนเวียน',a:'เงินสด',d:'ช่วงก่อนส่งมอบรอบสองและเดือนที่ค่าเช่าไม่ครบ SMART ต้องใช้เงินของตัวเอง',m:'ทำแผนเงินสดรายเดือน หายอดขาดสูงสุด และเตรียมวงเงินสำรอง',o:'ข้อ 07 · การเงิน SMART'},
+ {t:'ราคารถและฐาน VAT',a:'ต้นทุน',d:'ราคาต่อคันยืนยันแล้ว 2,200,000 บาท แต่ยังไม่ยืนยันว่ารวม VAT หรือไม่ ซึ่งกระทบเครดิต VAT และต้นทุนจริง',m:'ขอใบเสนอราคาฉบับยืนยันฐาน VAT จาก MAPORN',o:'ข้อ 01 · MAPORN / จัดซื้อ'},
+ {t:'เงื่อนไขสัญญาเช่าซื้อ',a:'สัญญา',d:'วงเงิน 83.6 ล้าน 3.5% Flat และการโอนกรรมสิทธิ์ยังไม่ลงนาม',m:'ตรวจสัญญา PRIME–SMART และตารางผ่อน 29/9 คัน',o:'ข้อ 02–03 · PRIME / สัญญา'},
+ {t:'การยกเลิกสัญญา กฟน.',a:'สัญญา',d:'ถ้า กฟน. ยกเลิกหรือชำระล่าช้า ค่างวด PRIME ยังเดินต่อ',m:'กำหนดสิทธิทุกฝ่ายในเอกสารโอนสิทธิรับเงินและข้อตกลงเงินสำรอง',o:'ข้อ 05–06 · SMART / MEA / PRIME'},
+ {t:'ตัวเลขผลตอบแทนยังไม่รับรอง',a:'ข้อมูล',d:'ส่วนต่าง 19.96 ล้าน NPV และ IRR ยังกระทบยอดกับสมมติฐานไม่ได้',m:'Final Audit Cash Flow รายเดือน คำนวณ ROI, Equity IRR, NPV @10% และ Payback ใหม่',o:'ข้อ 08 · การเงิน / ผู้ตรวจสอบ'}];
+
+
+
+/* ===================== CHARTS (SVG, one linear scale each) ===================== */
+function hbar(id,rows,max,unit){
+  const W=760,rowH=66,lw=220,H=rows.length*rowH+30,sc=(W-lw-90)/max;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img">`;
+  rows.forEach((r,i)=>{const y=i*rowH+8;let x=lw;
+    s+=`<text x="0" y="${y+28}" font-size="20" font-family="Prompt" fill="${r.lc||'#363B44'}">${esc(r.l)}</text>`;
+    r.p.forEach(p=>{const w=Math.max(p.v*sc,1);s+=`<rect x="${x}" y="${y}" width="${w}" height="44" rx="4" fill="${p.c}"/>`;
+      if(w>70)s+=`<text x="${x+10}" y="${y+28}" font-size="17" font-family="Inter" font-weight="600" fill="#fff">${esc(p.t||fmt(p.v,2))}</text>`;x+=w;});
+    s+=`<text x="${x+10}" y="${y+28}" font-size="18" font-family="Inter" font-weight="700" fill="${r.tc||'#1C1F24'}">${esc(r.tot)}</text>`;});
+  const ty=H-6;[0,max/2,max].forEach(v=>{s+=`<text x="${lw+v*sc}" y="${ty}" font-size="12" font-family="Inter" fill="#6A717C" text-anchor="${v?'middle':'start'}">${fmt(v,0)}${unit}</text>`});
+  return document.getElementById(id).innerHTML=s+'</svg>';
+}
+hbar('chRev',[
+ {l:'28 คัน × 60 งวด',p:[{v:88.704,c:'#363B44',t:'88.70'},{v:6.20928,c:'#F26B1D',t:''}],tot:'94.91'},
+ {l:'8 คัน × 57 งวด',p:[{v:24.0768,c:'#363B44',t:'24.08'},{v:1.685376,c:'#F26B1D',t:''}],tot:'25.76'},
+ {l:'รวม',p:[{v:112.7808,c:'#1C1F24',t:'ก่อน VAT 112.78'},{v:7.894656,c:'#F26B1D',t:'VAT'}],tot:'120.68'}],130,'');
+hbar('chAsset',[
+ {l:'ราคารถเปล่า',p:[{v:2.01,c:'#363B44',t:'2,010,000'}],tot:'91.4%'},
+ {l:'อุปกรณ์ตกแต่ง',p:[{v:0.19,c:'#F26B1D',t:''}],tot:'190,000 · 8.6%'},
+ {l:'รวมต่อคัน',p:[{v:2.01,c:'#1C1F24',t:'2,010,000'},{v:0.19,c:'#F26B1D',t:''}],tot:'2,200,000'}],2.4,' ล.');
+hbar('chFin',[
+ {l:'เงินต้น',p:[{v:83.6,c:'#363B44',t:'83.60'}],tot:'85.1%'},
+ {l:'ดอกเบี้ย',p:[{v:14.63,c:'#F26B1D',t:'14.63'}],tot:'14.9%'},
+ {l:'ยอดชำระรวม',p:[{v:83.6,c:'#1C1F24',t:'83.60'},{v:14.63,c:'#F26B1D',t:'14.63'}],tot:'98.23'}],110,'');
+hbar('chFeas',[
+ {l:'ค่าเช่า รวม VAT',p:[{v:112.7808,c:'#363B44',t:'112.78'},{v:7.894656,c:'#F26B1D',t:''}],tot:'120.68'},
+ {l:'ขายซาก รวม VAT',p:[{v:14.2056,c:'#363B44',t:'14.21'},{v:0.9944,c:'#F26B1D',t:''}],tot:'15.20'},
+ {l:'ยอดผ่อน PRIME',p:[{v:98.23,c:'#6A717C',t:'98.23 · ฐาน VAT รอยืนยัน'}],tot:'98.23'},
+ {l:'บำรุงรักษา ก่อน VAT',p:[{v:13.909,c:'#6A717C',t:'13.91'}],tot:'13.91'}],135,'');
+document.querySelectorAll('#chFeas svg').forEach(()=>{});
+
+/* waterfall: steady month */
+function waterfall(id,steps){
+  const W=820,H=320,pad=40,top=28,bot=52;let run=0,mx=0,mn=0;
+  steps.forEach(s=>{if(s.total){mx=Math.max(mx,s.v);mn=Math.min(mn,s.v)}else{run+=s.v;mx=Math.max(mx,run);mn=Math.min(mn,run)}});
+  run=0;const sc=(H-top-bot)/(mx-mn),y0=v=>top+(mx-v)*sc,bw=(W-pad)/steps.length;
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img">`;
+  s+=`<line x1="${pad-10}" x2="${W}" y1="${y0(0)}" y2="${y0(0)}" stroke="#6A717C" stroke-width="1"/>`;
+  steps.forEach((st,i)=>{const x=pad+i*bw+8,w=bw-16;let a,b,c;
+    if(st.total){a=0;b=st.v;c=st.v<0?'#FF6B6B':'#F26B1D';run=st.v}else{a=run;b=run+st.v;run=b;c=st.v<0?'#6A717C':'#C8CCD2'}
+    const yt=y0(Math.max(a,b)),h=Math.max(Math.abs(b-a)*sc,2);
+    s+=`<rect x="${x}" y="${yt}" width="${w}" height="${h}" rx="4" fill="${c}"/>`;
+    s+=`<text x="${x+w/2}" y="${yt-8}" font-size="16" font-family="Inter" font-weight="700" fill="#fff" text-anchor="middle">${st.v<0?'−':''}${fmt(Math.abs(st.v),st.d??0)}</text>`;
+    st.l.split('|').forEach((t,k)=>s+=`<text x="${x+w/2}" y="${H-bot+20+k*18}" font-size="15" font-family="Prompt" fill="#B6BCC5" text-anchor="middle">${esc(t)}</text>`);});
+  document.getElementById(id).innerHTML=s+'</svg>';
+}
+const inst=D.rounds.reduce((a,r)=>a+r.cars*D.price*(1+D.rate*D.years)/r.n,0);
+const rentFleet=36*D.rentIn, outV=36*D.rentIn*D.vat/(1+D.vat), mIn=36*D.maint*(1+D.vat), mV=36*D.maint*D.vat;
+waterfall('chWf',[
+ {l:'ค่าเช่า กฟน.|รวม VAT',v:rentFleet},
+ {l:'ค่างวด|หักโดย PRIME',v:-inst,d:2},
+ {l:'โอนให้|SMART',v:rentFleet-inst,total:1,d:2},
+ {l:'บำรุงรักษา|รวม VAT',v:-mIn},
+ {l:'VAT สุทธิ|นำส่ง',v:-(outV-mV)},
+ {l:'คงเหลือ|ก่อนเครดิต VAT เช่าซื้อ',v:rentFleet-inst-mIn-(outV-mV),total:1,d:2}]);
+
+/* timeline */
+(function(){const rows=[
+ ['ไฟแนนซ์รอบแรก','29 คัน · 60 งวด',60,'#F26B1D',0],
+ ['ไฟแนนซ์รอบสอง','9 คัน · 57 งวด · ตำแหน่งรอยืนยัน',57,'',1],
+ ['ค่าเช่า 28 คัน','60 งวด',60,'#363B44',0],
+ ['ค่าเช่า 8 คัน','57 งวด · ตำแหน่งรอยืนยัน',57,'',1]];
+ let h='';rows.forEach(r=>{h+=`<div class="nm">${esc(r[0])}<small>${esc(r[1])}</small></div><div class="tr"><div class="bar${r[4]?' dash':''}" style="left:0;width:${r[2]/60*100}%;${r[3]?'background:'+r[3]:''}">${r[2]} งวด</div></div>`});
+ h+=`<div class="ax"><span>งวด 1</span><span>12</span><span>24</span><span>36</span><span>48</span><span>60</span></div>`;
+ document.getElementById('tl').innerHTML=h;})();
+
+/* risk / checklist / conflicts */
+document.getElementById('rk').innerHTML=RISKS.map(r=>`<div class="rc"><div class="t"><h4>${esc(r.t)}</h4><span class="ar">${esc(r.a)}</span></div><p>${esc(r.d)}</p><div class="m"><b>จัดการ:</b> ${esc(r.m)}</div><div class="o">${esc(r.o)}</div></div>`).join('');
+
+/* ===================== SENSITIVITY (interactive) ===================== */
+const S0={rent:56496,rate:3.5,mnt:7000,car:36};
+const $=id=>document.getElementById(id);
+function calc(p){
+  const r=p.rate/100, inst=D.rounds.reduce((a,x)=>a+x.cars*D.price*(1+r*D.years)/x.n,0);
+  const rent=p.car*p.rent, outV=rent*D.vat/(1+D.vat), mIn=p.car*p.mnt*(1+D.vat), mV=p.car*p.mnt*D.vat;
+  const toSmart=rent-inst, net=toSmart-mIn-(outV-mV);
+  return {rent,inst,toSmart,mIn,vatNet:outV-mV,net,hp:D.purchase*(1+r*D.years),int:D.purchase*r*D.years,revPre:p.rent/(1+D.vat)*D.rentMonths};
+}
+function renderS(){
+  const p={rent:+$('sRent').value,rate:+$('sRate').value,mnt:+$('sMnt').value,car:+$('sCar').value};
+  $('oRent').textContent=fmt(p.rent);$('oRate').textContent=p.rate.toFixed(2)+'%';$('oMnt').textContent=fmt(p.mnt);$('oCar').textContent=p.car+' คัน';
+  const a=calc(p),b=calc(S0);
+  const dl=(x,y)=>{const d=x-y;if(Math.abs(d)<0.005)return '<i class="z">ฐาน</i>';return `<i class="${d>0?'up':'dn'}">${d>0?'+':'−'}${fmt(Math.abs(d),2)}</i>`};
+  const dlc=(x,y)=>{const d=x-y;if(Math.abs(d)<0.005)return '<i class="z">ฐาน</i>';return `<i class="${d<0?'up':'dn'}">${d>0?'+':'−'}${fmt(Math.abs(d),2)}</i>`};
+  $('res').innerHTML=
+   `<div class="row"><span>ค่าเช่าเข้า PRIME / เดือน (รวม VAT)</span><b>${fmt(a.rent,2)}</b>${dl(a.rent,b.rent)}</div>`+
+   `<div class="row"><span>ค่างวดรวม 38 คัน / เดือน</span><b>${fmt(a.inst,2)}</b>${dlc(a.inst,b.inst)}</div>`+
+   `<div class="row"><span>PRIME โอนให้ SMART</span><b>${fmt(a.toSmart,2)}</b>${dl(a.toSmart,b.toSmart)}</div>`+
+   `<div class="row"><span>บำรุงรักษา (รวม VAT)</span><b>${fmt(a.mIn,2)}</b>${dlc(a.mIn,b.mIn)}</div>`+
+   `<div class="row"><span>VAT สุทธินำส่ง</span><b>${fmt(a.vatNet,2)}</b>${dlc(a.vatNet,b.vatNet)}</div>`+
+   `<div class="row big"><span>คงเหลือ SMART / เดือน<br><small style="color:#8A919B">ก่อนเครดิต VAT ค่างวดเช่าซื้อ</small></span><b style="color:${a.net<0?'#FF8A8A':'#7BD69E'}">${a.net<0?'−':''}${fmt(Math.abs(a.net),2)}</b>${dl(a.net,b.net)}</div>`+
+   `<div class="row"><span>ยอดชำระ PRIME รวมทั้งสัญญา</span><b>${fmt(a.hp)}</b>${dlc(a.hp,b.hp)}</div>`+
+   `<div class="row"><span>รายได้ค่าเช่า 2,136 งวด (ก่อน VAT)</span><b>${fmt(a.revPre)}</b>${dl(a.revPre,b.revPre)}</div>`;
+}
+function resetS(){$('sRent').value=S0.rent;$('sRate').value=S0.rate;$('sMnt').value=S0.mnt;$('sCar').value=S0.car;renderS()}
+['sRent','sRate','sMnt','sCar'].forEach(i=>$(i).addEventListener('input',renderS));
+$('sReset').addEventListener('click',resetS);resetS();
+
+/* ===================== DECK ENGINE ===================== */
+const slides=[...document.querySelectorAll('#stage > .slide')];
+let cur=0;
+const phone=()=>matchMedia('(max-width:760px)').matches;
+function fit(){if(phone()){document.getElementById('stage').style.removeProperty('--s');return}
+  const vp=document.getElementById('viewport').getBoundingClientRect();
+  const s=Math.min((vp.width-24)/1600,(vp.height-24)/900);document.getElementById('stage').style.setProperty('--s',Math.max(s,0.1));}
+function show(i,fromScroll){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  $('ctr').textContent=`${cur+1} / ${slides.length}`;
+  $('ttl').innerHTML=`${esc(slides[cur].dataset.t)} <span>· FARIZON P6M MEA</span>`;
+  document.querySelector('#prog i').style.width=((cur+1)/slides.length*100)+'%';
+  if(phone()&&!fromScroll)slides[cur].scrollIntoView({behavior:'smooth',block:'start'});
+  try{history.replaceState(null,'','#s'+(cur+1))}catch(e){}
+}
+function step(d){show(cur+d)}
+$('bPrev').onclick=()=>step(-1);$('bNext').onclick=()=>step(1);
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('input,textarea'))return;
+  if($('ov').classList.contains('on')){if(e.key==='Escape')closeOv();return}
+  const k=e.key;
+  if(['ArrowRight','PageDown',' ','Enter'].includes(k)){e.preventDefault();step(1)}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(k)){e.preventDefault();step(-1)}
+  else if(k==='Home'){show(0)}else if(k==='End'){show(slides.length-1)}
+  else if(k==='o'||k==='O'||k==='g'||k==='G'){openOv()}
+  else if(k==='f'||k==='F'){togglePresent()}
+  else if(k==='Escape'&&document.body.classList.contains('present')){togglePresent(false)}
+});
+/* swipe */
+let tx=null;document.getElementById('viewport').addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+document.getElementById('viewport').addEventListener('touchend',e=>{if(tx===null||phone())return;const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)step(d<0?1:-1);tx=null});
+/* overview */
+function openOv(){const g=$('ovGrid');g.innerHTML='';
+  slides.forEach((s,i)=>{const b=document.createElement('button');b.className='th'+(i===cur?' cur':'');b.type='button';
+    b.innerHTML=`<div class="box"><div></div></div><span><em>${String(i+1).padStart(2,'0')}</em>${esc(s.dataset.t)}</span>`;
+    const c=s.cloneNode(true);c.classList.add('on');c.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));c.querySelectorAll('input,button').forEach(n=>n.setAttribute('tabindex','-1'));
+    b.querySelector('.box>div').appendChild(c);b.onclick=()=>{closeOv();show(i)};g.appendChild(b)});
+  $('ov').classList.add('on');requestAnimationFrame(()=>{g.querySelectorAll('.box').forEach(bx=>{bx.firstElementChild.style.transform=`scale(${bx.clientWidth/1600})`})});
+  setTimeout(()=>{const c=g.querySelector('.cur');c&&c.focus()},30);}
+function closeOv(){$('ov').classList.remove('on');$('bOv').focus()}
+$('bOv').onclick=openOv;$('ovClose').onclick=closeOv;
+/* presentation mode */
+let wakeT;
+function togglePresent(force){const on=force??!document.body.classList.contains('present');
+  document.body.classList.toggle('present',on);
+  try{if(on&&document.documentElement.requestFullscreen&&!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+      if(!on&&document.fullscreenElement)document.exitFullscreen().catch(()=>{});}catch(e){}
+  setTimeout(fit,120);toast(on?'โหมดนำเสนอ · ใช้ลูกศร ← → เปลี่ยนสไลด์ · Esc เพื่อออก':'ออกจากโหมดนำเสนอ');}
+$('bPresent').onclick=()=>togglePresent();
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('present');setTimeout(fit,80)});
+document.addEventListener('mousemove',()=>{if(!document.body.classList.contains('present'))return;document.body.classList.add('wake');clearTimeout(wakeT);wakeT=setTimeout(()=>document.body.classList.remove('wake'),1800)});
+/* export pdf: browser print → Save as PDF (1 slide per page) */
+$('bPdf').onclick=()=>{toast('เลือก "Save as PDF" · แนวนอน · ปิดหัว/ท้ายกระดาษ');setTimeout(()=>{try{window.print()}catch(e){}},400)};
+function toast(t){const el=$('toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2600)}
+/* phone: track slide in view */
+const io=new IntersectionObserver(es=>{if(!phone())return;es.forEach(e=>{if(e.isIntersecting){const i=slides.indexOf(e.target);if(i>-1)show(i,true)}})},{threshold:.55});
+slides.forEach(s=>io.observe(s));
+addEventListener('resize',fit);
+fit();
+const h=parseInt((location.hash||'').replace('#s',''));show(isNaN(h)?0:h-1, true);
+</script>
+</body>
+</html>
