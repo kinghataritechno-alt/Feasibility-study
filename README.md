@@ -86,8 +86,8 @@ npm run build
 
 ## แหล่งข้อมูล
 
-1. FARIZON P6M MEA — Draft V1.0 (4 พ.ย. 2569)
-2. Document Verification Checklist (4 พ.ย. 2569)
+1. FARIZON P6M MEA — Draft V1.0 (10 ต.ค. 2569)
+2. Document Verification Checklist (10 ต.ค. 2569)
 3. หนังสือ SMART TERMINAL เลขที่ ST 69/1021/003 (21 ต.ค. 2569)
 4. Project Budget Master (Dealer 2,200,000 บาท/คัน, O&M Master v2.0)
 
